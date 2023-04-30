@@ -33,8 +33,9 @@ public class BarbeiroService {
     public BarbeiroDTO save(BarbeiroDTO barbeiroDTO) {
         Barbeiro barbeiro = modelMapper.map(barbeiroDTO, Barbeiro.class);
         barbeiro.setId(null); // Garante que o barbeiro seja salvo como um novo registro
-        barbeiro = barbeiroRepository.save(barbeiro);
-        return modelMapper.map(barbeiro, BarbeiroDTO.class);
+
+        Barbeiro barbeiroSalvo = barbeiroRepository.save(barbeiro);
+        return modelMapper.map(barbeiroSalvo, BarbeiroDTO.class);
     }
 
     public BarbeiroDTO update(Long id, BarbeiroDTO barbeiroDTO) {

@@ -34,8 +34,9 @@ public class ClienteService {
     public ClienteDTO save(ClienteDTO clienteDTO) {
         Cliente cliente = modelMapper.map(clienteDTO, Cliente.class);
         cliente.setId(null); // Garante que o cliente seja salvo como um novo registro
-        cliente = clienteRepository.save(cliente);
-        return modelMapper.map(cliente, ClienteDTO.class);
+
+        Cliente clienteSalvo = clienteRepository.save(cliente);
+        return modelMapper.map(clienteSalvo, ClienteDTO.class);
     }
 
     public ClienteDTO update(Long id, ClienteDTO clienteDTO) {
