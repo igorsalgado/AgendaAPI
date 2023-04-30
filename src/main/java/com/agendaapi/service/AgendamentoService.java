@@ -5,6 +5,8 @@ import com.agendaapi.model.Agendamento;
 import com.agendaapi.model.Barbeiro;
 import com.agendaapi.model.Cliente;
 import com.agendaapi.repository.AgendamentoRepository;
+import com.agendaapi.repository.BarbeiroRepository;
+import com.agendaapi.repository.ClienteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,12 @@ public class AgendamentoService {
 
     @Autowired
     private AgendamentoRepository agendamentoRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private BarbeiroRepository barbeiroRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -36,7 +44,17 @@ public class AgendamentoService {
 
     public AgendamentoDTO save(AgendamentoDTO agendamentoDTO) {
         Agendamento agendamento = modelMapper.map(agendamentoDTO, Agendamento.class);
-        agendamento.setId(null);
+        agendamento.setId(null); // Garante que será criado um novo registro
+
+
+        Cliente cliente = clienteRepository.findById(agendamentoDTO.getCliente().getId()) // Busca o cliente pelo id
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+        Barbeiro barbeiro = barbeiroRepository.findById(agendamentoDTO.getBarbeiro().getId()) // Busca o barbeiro pelo id
+                .orElseThrow(() -> new RuntimeException("Barbeiro não encontrado"));
+
+        agendamento.setCliente(cliente); // Seta o cliente no agendamento
+        agendamento.setBarbeiro(barbeiro); // Seta o barbeiro no agendamento
 
         Agendamento agendamentoSalvo = agendamentoRepository.save(agendamento);
         return modelMapper.map(agendamentoSalvo, AgendamentoDTO.class);

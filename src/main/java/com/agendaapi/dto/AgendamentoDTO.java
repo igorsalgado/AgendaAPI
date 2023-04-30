@@ -1,6 +1,7 @@
 package com.agendaapi.dto;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 public class AgendamentoDTO {
 
     private Long id;
+    @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm")
     private LocalDateTime dataAgendamento;
     private ClienteDTO cliente;
     private BarbeiroDTO barbeiro;
