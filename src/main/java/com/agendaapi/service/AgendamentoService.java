@@ -54,20 +54,33 @@ public class AgendamentoService {
                 .orElseThrow(() -> new RuntimeException("Barbeiro não encontrado"));
 
         agendamento.setCliente(cliente); // Seta o cliente no agendamento
-        agendamento.setBarbeiro(barbeiro); // Seta o barbeiro no agendamento
+        agendamento.setBarbeiro(barbeiro); // Seta o barbeiro no agendamento);
 
         Agendamento agendamentoSalvo = agendamentoRepository.save(agendamento);
         return modelMapper.map(agendamentoSalvo, AgendamentoDTO.class);
     }
 
     public AgendamentoDTO update(Long id, AgendamentoDTO agendamentoDTO) {
+
         Agendamento agendamento = agendamentoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
-        agendamento.setDataAgendamento(agendamentoDTO.getDataAgendamento());
+
+        Cliente cliente = clienteRepository.findById(agendamentoDTO.getCliente().getId()) // Busca o cliente pelo id
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+        Barbeiro barbeiro = barbeiroRepository.findById(agendamentoDTO.getBarbeiro().getId()) // Busca o barbeiro pelo id
+                .orElseThrow(() -> new RuntimeException("Barbeiro não encontrado"));
+
+        agendamento.setDataAgendamento(agendamentoDTO.getDataAgendamento()); // Seta a data de agendamento
+
         agendamento.setCliente(modelMapper.map(agendamentoDTO.getCliente(), Cliente.class));
+        agendamento.setCliente(cliente); // Seta o cliente no agendamento
+
         agendamento.setBarbeiro(modelMapper.map(agendamentoDTO.getBarbeiro(), Barbeiro.class));
+        agendamento.setBarbeiro(barbeiro); // Seta o barbeiro no agendamento
 
         Agendamento agendamentoAtualizado = agendamentoRepository.save(agendamento);
+
         return modelMapper.map(agendamentoAtualizado, AgendamentoDTO.class);
     }
 
