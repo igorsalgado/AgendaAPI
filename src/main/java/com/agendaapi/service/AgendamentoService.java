@@ -60,16 +60,23 @@ public class AgendamentoService {
     }
 
     public AgendamentoDTO save(AgendamentoDTO agendamentoDTO) {
-        Agendamento agendamento = modelMapper.map(agendamentoDTO, Agendamento.class);
-        agendamento.setId(null); // Garante que será criado um novo registro
 
-
+        //verifica se o cliente existe
         Cliente cliente = clienteRepository.findById(agendamentoDTO.getCliente().getId()) // Busca o cliente pelo id
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
+        //verifica se o barbeiro existe
         Barbeiro barbeiro = barbeiroRepository.findById(agendamentoDTO.getBarbeiro().getId()) // Busca o barbeiro pelo id
                 .orElseThrow(() -> new RuntimeException("Barbeiro não encontrado"));
 
+        //Arredonda a hora do agendamento de 30 em 30 minutos
+        agendamentoDTO.setDataAgendamento(agendamentoDTO.getDataAgendamento()
+                .withMinute(30 * ((agendamentoDTO.getDataAgendamento()
+                        .getMinute() + 15) / 30)));
+
+        //Cria o objeto agendamento apartir do DTO
+        Agendamento agendamento = modelMapper.map(agendamentoDTO, Agendamento.class);
+        agendamento.setId(null); // Garante que será criado um novo registro
         agendamento.setCliente(cliente); // Seta o cliente no agendamento
         agendamento.setBarbeiro(barbeiro); // Seta o barbeiro no agendamento);
 
@@ -88,7 +95,10 @@ public class AgendamentoService {
         Barbeiro barbeiro = barbeiroRepository.findById(agendamentoDTO.getBarbeiro().getId()) // Busca o barbeiro pelo id
                 .orElseThrow(() -> new RuntimeException("Barbeiro não encontrado"));
 
-        agendamento.setDataAgendamento(agendamentoDTO.getDataAgendamento()); // Seta a data de agendamento
+        //Arredonda a hora do agendamento de 30 em 30 minutos
+        agendamentoDTO.setDataAgendamento(agendamentoDTO.getDataAgendamento()
+                .withMinute(30 * ((agendamentoDTO.getDataAgendamento()
+                        .getMinute() + 15) / 30)));
 
         agendamento.setCliente(modelMapper.map(agendamentoDTO.getCliente(), Cliente.class));
         agendamento.setCliente(cliente); // Seta o cliente no agendamento
