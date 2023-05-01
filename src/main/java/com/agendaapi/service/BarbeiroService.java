@@ -4,6 +4,7 @@ import com.agendaapi.dto.BarbeiroDTO;
 import com.agendaapi.model.Barbeiro;
 import com.agendaapi.repository.BarbeiroRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,11 @@ public class BarbeiroService {
     public BarbeiroDTO findById(Long id) {
         Barbeiro barbeiro = barbeiroRepository.findById(id).orElse(null);
         return modelMapper.map(barbeiro, BarbeiroDTO.class);
+    }
+
+    public List<BarbeiroDTO> findByNome(String nome) {
+        List<Barbeiro> barbeiros = barbeiroRepository.findByNome(nome);
+        return modelMapper.map(barbeiros, new TypeToken<List<BarbeiroDTO>>() {}.getType()); // TypeToken é necessário para mapear uma lista
     }
 
     public BarbeiroDTO save(BarbeiroDTO barbeiroDTO) {

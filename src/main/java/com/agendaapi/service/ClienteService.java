@@ -4,6 +4,7 @@ import com.agendaapi.dto.ClienteDTO;
 import com.agendaapi.model.Cliente;
 import com.agendaapi.repository.ClienteRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,12 @@ public class ClienteService {
         return modelMapper.map(cliente, ClienteDTO.class);
     }
 
+    public List<ClienteDTO> findByNome(String nome) {
+
+        List<Cliente> clientes = clienteRepository.findByNome(nome);
+        return modelMapper.map(clientes, new TypeToken<List<ClienteDTO>>() {}.getType()); // TypeToken é necessário para mapear uma lista
+    }
+
     public ClienteDTO save(ClienteDTO clienteDTO) {
         Cliente cliente = modelMapper.map(clienteDTO, Cliente.class);
         cliente.setId(null); // Garante que o cliente seja salvo como um novo registro
@@ -53,6 +60,5 @@ public void delete(Long id) {
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
         clienteRepository.delete(cliente);
     }
-
 
 }
