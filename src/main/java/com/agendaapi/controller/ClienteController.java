@@ -33,7 +33,7 @@ public class ClienteController {
         return clienteService.findById(id);
     }
 
-    @GetMapping("/nome/{nome}")
+    @GetMapping("/cadastrados/{nome}")
     @ApiOperation("Retorna um cliente pelo nome")
     public ResponseEntity<List<ClienteDTO>> findByNome(@PathVariable String nome) {
         List<ClienteDTO> clienteDTOS = clienteService.findByNome(nome);

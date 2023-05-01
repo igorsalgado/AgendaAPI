@@ -36,7 +36,7 @@ public class BarbeiroController {
         return barbeiroService.findById(id);
     }
 
-    @GetMapping("/nome/{nome}")
+    @GetMapping("/cadastrados/{nome}")
     @ApiOperation("Retorna um barbeiro pelo nome")
     public ResponseEntity<List<BarbeiroDTO>> findByNome(@PathVariable String nome) {
         List<BarbeiroDTO> barbeiroDTOS = barbeiroService.findByNome(nome);

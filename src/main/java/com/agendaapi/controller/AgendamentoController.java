@@ -5,10 +5,14 @@ import com.agendaapi.service.AgendamentoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/agendamentos")
@@ -30,6 +34,16 @@ public class AgendamentoController {
     public AgendamentoDTO findById(@PathVariable Long id) {
         return agendamentoService.findById(id);
     }
+
+    @GetMapping("/agendados/{data}")
+    @ApiOperation("Busca um agendamento pela data")
+    public ResponseEntity<List<AgendamentoDTO>> findByData(@PathVariable("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
+        List<AgendamentoDTO> agendamentoDTOS = agendamentoService.findByData(data);
+
+        return ResponseEntity.ok(agendamentoDTOS);
+
+    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

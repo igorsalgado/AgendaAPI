@@ -11,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,6 +42,21 @@ public class AgendamentoService {
         Agendamento agendamento = agendamentoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
         return modelMapper.map(agendamento, AgendamentoDTO.class);
+    }
+
+    public List<AgendamentoDTO> findByData(LocalDate data) {
+
+        List<Agendamento> agendamentos = agendamentoRepository.findAll(); // Busca todos os agendamentos
+
+        List<Agendamento> agendamentosByData = agendamentos.stream()
+                .filter(agendamento -> agendamento.getDataAgendamento().toLocalDate().equals(data))
+                .collect(Collectors.toList()); // Filtra os agendamentos pela data
+
+        List<AgendamentoDTO> agendamentoDTOS = agendamentosByData.stream()
+                .map(agendamento -> modelMapper.map(agendamento, AgendamentoDTO.class))
+                .collect(Collectors.toList()); // Converte os agendamentos para DTO
+
+        return agendamentoDTOS;
     }
 
     public AgendamentoDTO save(AgendamentoDTO agendamentoDTO) {
