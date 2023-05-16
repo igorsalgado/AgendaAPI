@@ -1,4 +1,4 @@
-package com.agendaapi.model;
+package com.agenda.api.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,8 +1,8 @@
-package com.agendaapi.service;
+package com.agenda.api.service;
 
-import com.agendaapi.dto.BarbeiroDTO;
-import com.agendaapi.model.Barbeiro;
-import com.agendaapi.repository.BarbeiroRepository;
+import com.agenda.api.repository.BarbeiroRepository;
+import com.agenda.api.dto.BarbeiroDTO;
+import com.agenda.api.model.Barbeiro;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;

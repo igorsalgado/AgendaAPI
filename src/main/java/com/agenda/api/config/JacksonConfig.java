@@ -1,4 +1,4 @@
-package com.agendaapi.config;
+package com.agenda.api.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

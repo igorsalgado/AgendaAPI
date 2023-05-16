@@ -1,10 +1,10 @@
-package com.agendaapi.dto;
+package com.agenda.api.dto;
 
 
 import lombok.Data;
 
 @Data
-public class ClienteDTO {
+public class BarbeiroDTO {
     private Long id;
     private String nome;
 }

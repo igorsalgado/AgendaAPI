@@ -1,4 +1,4 @@
-package com.agendaapi.model;
+package com.agenda.api.model;
 
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "barbeiro")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cliente {
+public class Barbeiro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

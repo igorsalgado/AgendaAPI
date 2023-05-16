@@ -1,7 +1,7 @@
-package com.agendaapi.controller;
+package com.agenda.api.controller;
 
-import com.agendaapi.dto.ClienteDTO;
-import com.agendaapi.service.ClienteService;
+import com.agenda.api.service.ClienteService;
+import com.agenda.api.dto.ClienteDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

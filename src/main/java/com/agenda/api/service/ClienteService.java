@@ -1,8 +1,8 @@
-package com.agendaapi.service;
+package com.agenda.api.service;
 
-import com.agendaapi.dto.ClienteDTO;
-import com.agendaapi.model.Cliente;
-import com.agendaapi.repository.ClienteRepository;
+import com.agenda.api.dto.ClienteDTO;
+import com.agenda.api.model.Cliente;
+import com.agenda.api.repository.ClienteRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;

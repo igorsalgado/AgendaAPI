@@ -1,4 +1,4 @@
-package com.agendaapi.model;
+package com.agenda.api.model;
 
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "barbeiro")
+@Table(name = "cliente")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Barbeiro {
+public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,4 +21,9 @@ public class Barbeiro {
     @Column(name = "nome", nullable = false, length = 100)
     @NotBlank(message = "O campo nome é obrigatório")
     private String nome;
+
+
+    @Column(name = "telefone", nullable = false, length = 100)
+    @NotBlank(message = "O campo telefone é obrigatório")
+    private String telefone;
 }

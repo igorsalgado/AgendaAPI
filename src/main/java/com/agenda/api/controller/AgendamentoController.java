@@ -1,7 +1,7 @@
-package com.agendaapi.controller;
+package com.agenda.api.controller;
 
-import com.agendaapi.dto.AgendamentoDTO;
-import com.agendaapi.service.AgendamentoService;
+import com.agenda.api.dto.AgendamentoDTO;
+import com.agenda.api.service.AgendamentoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/agendamentos")
@@ -35,7 +34,7 @@ public class AgendamentoController {
         return agendamentoService.findById(id);
     }
 
-    @GetMapping("/agendados/{data}")
+    @GetMapping("/agendados/data/{data}")
     @ApiOperation("Busca um agendamento pela data")
     public ResponseEntity<List<AgendamentoDTO>> findByData(@PathVariable("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
         List<AgendamentoDTO> agendamentoDTOS = agendamentoService.findByData(data);
@@ -43,8 +42,20 @@ public class AgendamentoController {
         return ResponseEntity.ok(agendamentoDTOS);
 
     }
+    @GetMapping("/agendados/cliente/{nomeCliente}")
+    public ResponseEntity<List<AgendamentoDTO>> findByNomeCliente(@PathVariable("nomeCliente") String nomeCliente) {
+        List<AgendamentoDTO> agendamentoDTOS = agendamentoService.findByNomeCliente(nomeCliente);
 
+        return ResponseEntity.ok(agendamentoDTOS);
 
+    }
+    @GetMapping("/agendados/barbeiro/{nomeBarbeiro}")
+    public ResponseEntity<List<AgendamentoDTO>> findByNomeBarbeiro(@PathVariable("nomeBarbeiro") String nomeBarbeiro) {
+        List<AgendamentoDTO> agendamentoDTOS = agendamentoService.findByNomeBarbeiro(nomeBarbeiro);
+
+        return ResponseEntity.ok(agendamentoDTOS);
+
+    }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation("Cria um novo agendamento")

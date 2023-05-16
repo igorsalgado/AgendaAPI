@@ -1,6 +1,6 @@
-package com.agendaapi.repository;
+package com.agenda.api.repository;
 
-import com.agendaapi.model.Barbeiro;
+import com.agenda.api.model.Barbeiro;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

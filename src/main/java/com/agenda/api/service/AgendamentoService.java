@@ -1,18 +1,17 @@
-package com.agendaapi.service;
+package com.agenda.api.service;
 
-import com.agendaapi.dto.AgendamentoDTO;
-import com.agendaapi.model.Agendamento;
-import com.agendaapi.model.Barbeiro;
-import com.agendaapi.model.Cliente;
-import com.agendaapi.repository.AgendamentoRepository;
-import com.agendaapi.repository.BarbeiroRepository;
-import com.agendaapi.repository.ClienteRepository;
+import com.agenda.api.repository.AgendamentoRepository;
+import com.agenda.api.repository.BarbeiroRepository;
+import com.agenda.api.repository.ClienteRepository;
+import com.agenda.api.dto.AgendamentoDTO;
+import com.agenda.api.model.Agendamento;
+import com.agenda.api.model.Barbeiro;
+import com.agenda.api.model.Cliente;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,11 +51,23 @@ public class AgendamentoService {
                 .filter(agendamento -> agendamento.getDataAgendamento().toLocalDate().equals(data))
                 .collect(Collectors.toList()); // Filtra os agendamentos pela data
 
-        List<AgendamentoDTO> agendamentoDTOS = agendamentosByData.stream()
+        return agendamentosByData.stream()
                 .map(agendamento -> modelMapper.map(agendamento, AgendamentoDTO.class))
-                .collect(Collectors.toList()); // Converte os agendamentos para DTO
+                .collect(Collectors.toList());
+    }
 
-        return agendamentoDTOS;
+    public List<AgendamentoDTO> findByNomeCliente(String nomeCliente) {
+        List<Agendamento> agendamentos = agendamentoRepository.findByClienteNomeIgnoreCase(nomeCliente);
+        return agendamentos.stream()
+                .map(agendamento -> modelMapper.map(agendamento, AgendamentoDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<AgendamentoDTO> findByNomeBarbeiro(String nomeBarbeiro) {
+        List<Agendamento> agendamentos = agendamentoRepository.findByBarbeiroNomeIgnoreCase(nomeBarbeiro);
+        return agendamentos.stream()
+                .map(agendamento -> modelMapper.map(agendamento, AgendamentoDTO.class))
+                .collect(Collectors.toList());
     }
 
     public AgendamentoDTO save(AgendamentoDTO agendamentoDTO) {

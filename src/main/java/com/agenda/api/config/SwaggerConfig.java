@@ -1,4 +1,4 @@
-package com.agendaapi.config;
+package com.agenda.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
