@@ -41,7 +41,7 @@ public class ClienteController {
         return ResponseEntity.ok(clienteDTOS);
     }
 
-    @GetMapping("/cadastrados/{telefone}")
+    @GetMapping("/cadastrados/telefone/{telefone}")
     @ApiOperation("Retorna um cliente pelo telefone")
     public ResponseEntity<List<ClienteDTO>> findByTelefone(@PathVariable String telefone) {
         List<ClienteDTO> clienteDTOS = clienteService.findByTelefone(telefone);
