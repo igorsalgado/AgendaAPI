@@ -38,6 +38,11 @@ public class ClienteService {
         return modelMapper.map(clientes, new TypeToken<List<ClienteDTO>>() {}.getType()); // TypeToken é necessário para mapear uma lista
     }
 
+    public List<ClienteDTO> findByTelefone(String telefone) {
+        List<Cliente> clientes = clienteRepository.findByTelefone(telefone);
+        return modelMapper.map(clientes, new TypeToken<List<ClienteDTO>>() {}.getType()); // TypeToken é necessário para mapear uma lista
+    }
+
     public ClienteDTO save(ClienteDTO clienteDTO) {
         Cliente cliente = modelMapper.map(clienteDTO, Cliente.class);
         cliente.setId(null); // Garante que o cliente seja salvo como um novo registro
