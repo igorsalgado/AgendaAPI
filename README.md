@@ -27,6 +27,7 @@ A API possui os seguintes endpoints:
 - `GET /api/clientes`: Retorna todos os clientes.
 - `GET /api/clientes/{id}`: Retorna o cliente com o ID especificado.
 - `GET /api/clientes/cadastrados/{nome}`: Retorna o Cliente pelo nome
+- `GET /api/clientes/cadastrados/{telefone}`: Retorna o Cliente pelo telefone
 - `POST /api/clientes`: Cria um novo cliente.
 - `PUT /api/clientes/{id}`: Atualiza o cliente com o ID especificado.
 - `DELETE /api/clientes/{id}`: Exclui o cliente com o ID especificado.
